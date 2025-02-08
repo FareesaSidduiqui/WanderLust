@@ -131,7 +131,7 @@ app.use((req,res,next)=>{
     // the req.user becomes accessable rigth ? 
     // req.user only holds the information of the currently logged-in user. If no user is logged in, req.user will be undefined.
     // This behavior relies on Passport.js managing the session for authenticated users. Here's a quick breakdown:
-    res.locals.currentUser = req.user
+    res.locals.currentUser = req.user || null;
     console.log('this is the info =>',res.locals.currentUser);
     
 // so basically all this done by passport bcuz it stores the info with its method which is Authenticate and once that it stores the info in the session and session info is in req.user ? 
