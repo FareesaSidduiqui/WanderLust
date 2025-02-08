@@ -14,7 +14,7 @@ const app = express()
 const mongoose = require('mongoose')
 const path = require('path')
 const methodOverride = require('method-override');
-// const Listing = require('./model/listing.js')
+const Listing = require('./model/listing.js')
 // const Review = require('./model/review.js')
 // const wrapAsync = require("./utils/wrapAsync.js")
 const expressError = require('./utils/expressError.js')
@@ -101,10 +101,6 @@ const sessionOptions = {
     }
 }
 
-app.get('/',(req,res)=>{
-    res.render("/listings/home")
-})
-
 app.use(session(sessionOptions))
 app.use(flash()) //need to use this before using the routers review and users etc
 // we need sessions to implememt passport
@@ -140,6 +136,19 @@ app.use((req,res,next)=>{
 
 
     next()
+})
+
+app.get('/',async(req,res)=>{
+    try {
+        const allList = await Listing.find({}); // Fetch listings from your database
+        const searchQuery = req.query.country || ''; // Get query parameter if available
+
+        res.render("listings/home", { currentUser: req.user, searchQuery, allList });
+    } catch (err) {
+        console.error(err);
+        res.status(500).send("Server Error");
+    }
+
 })
 
 // this is for saving user in db
