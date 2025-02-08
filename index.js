@@ -101,9 +101,9 @@ const sessionOptions = {
     }
 }
 
-app.get('/',(req,res)=>{
-    res.send('wroking')
-})
+// app.get('/',(req,res)=>{
+//     res.send('wroking')
+// })
 
 app.use(session(sessionOptions))
 app.use(flash()) //need to use this before using the routers review and users etc
