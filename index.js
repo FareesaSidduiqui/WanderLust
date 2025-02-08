@@ -102,7 +102,7 @@ const sessionOptions = {
 }
 
 app.get('/',(req,res)=>{
-    res.send("/listings/home")
+    res.render("/listings/home")
 })
 
 app.use(session(sessionOptions))
