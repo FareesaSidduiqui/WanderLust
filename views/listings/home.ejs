@@ -1,0 +1,154 @@
+<% layout('/layouts/boilerplate') %>
+
+<style>
+    #filters{
+        display: flex;
+        flex-wrap: wrap;
+    }
+    .filter{
+        text-align: center;
+        margin-right: 2rem;
+        margin-top: 1rem;
+        opacity: 0.7;
+        text-decoration: none;
+        color: black;
+
+    }
+    .filter:hover{
+        opacity: 1;
+        cursor: pointer;
+    }
+    .filter p{
+        font-size: 0.8rem;
+    }
+    .taxPrice{
+        display: none;
+    }
+    .tax-toggle{
+        border: 2px solid black;
+        border-radius: 20px;
+        height: 50px;
+        width: 250px;
+        padding: 10px;
+        margin-top: 1rem;
+        margin-left: 2rem;
+        opacity: 0.7;
+    }
+    .resultSearchBox{
+        margin-top: 15px;
+        font-size: 35px;
+    }
+    #noResult{
+        font-size: 24px;
+        margin-top: 100px;
+    }
+</style>
+    <body>
+          <div id="filters">
+            <a href="/listings?category=room<%= searchQuery ? '&country=' + encodeURIComponent(searchQuery) : '' %>" class="filter">
+              <div><i class="fa-solid fa-bed"></i></div>
+              <p>Room</p>
+            </a>
+            <a href="/listings?category=trending<%= searchQuery ? '&country=' + encodeURIComponent(searchQuery) : '' %>" class="filter">
+              <div><i class="fa-solid fa-fire"></i></div>
+              <p>Trending</p>
+            </a>
+            <a href="/listings?category=arctic<%= searchQuery ? '&country=' + encodeURIComponent(searchQuery) : '' %>" class="filter">
+              <div><i class="fa-solid fa-snowflake"></i></div>
+              <p>Arctic</p>
+            </a>
+            <a href="/listings?category=pools<%= searchQuery ? '&country=' + encodeURIComponent(searchQuery) : '' %>" class="filter">
+              <div><i class="fa-solid fa-person-swimming"></i></div>
+              <p>Pools</p>
+            </a>
+            <a href="/listings?category=mountains<%= searchQuery ? '&country=' + encodeURIComponent(searchQuery) : '' %>" class="filter">
+              <div><i class="fa-solid fa-mountain"></i></div>
+              <p>Mountains</p>
+            </a>
+            <a href="/listings?category=castle<%= searchQuery ? '&country=' + encodeURIComponent(searchQuery) : '' %>" class="filter">
+              <div><i class="fa-solid fa-chess-rook"></i></div>
+              <p>Castle</p>
+            </a>
+            <a href="/listings?category=farm<%= searchQuery ? '&country=' + encodeURIComponent(searchQuery) : '' %>" class="filter">
+              <div><i class="fa-solid fa-tractor"></i></div>
+              <p>Farm</p>
+            </a>
+            <a href="/listings?category=mountain city<%= searchQuery ? '&country=' + encodeURIComponent(searchQuery) : '' %>" class="filter">
+              <div><i class="fa-solid fa-mountain-city"></i></div>
+              <p>Mountain City</p>
+            </a>
+            <a href="/listings?category=camping<%= searchQuery ? '&country=' + encodeURIComponent(searchQuery) : '' %>" class="filter">
+              <div><i class="fa-solid fa-campground"></i></div>
+              <p>Camping</p>
+            </a>
+        
+            <div class="tax-toggle">
+              <div class="form-check-reverse form-switch">
+                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                <label class="form-check-label" for="flexSwitchCheckDefault">Display total after taxes</label>
+              </div>
+            </div>
+          </div>
+
+          <% if (searchQuery) { %>
+            <h4 class="resultSearchBox">Showing results for "<%= searchQuery %>"</h4>
+          <% } %>
+            
+        
+        <!-- <h1>ALL List</h1> -->
+        <!-- <form method="GET" action="/listings/new">
+        <button>New List</button>
+    </form> byjust clicking the navbar option we will redirect to the route of new lists -->
+     <!-- Check if there are listings available -->
+  <% if (allList.length === 0) { %>
+    <center><p id="noResult">No listings found<%= searchQuery ? ' for "' + searchQuery + '"' : '' %>.</p></center>
+  <% } else { %>
+        <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1">
+            <% for(let list of allList) { %>
+                <a href="/listings/<%= list._id %>" class="fullCard">
+                    <div class="card col listing-card">
+                        <img src="<%= list.image.url %>" class="img-fluid" style="height: 20rem;" />
+                        <div class="card-img-overlay"></div>
+                        <div class="card-body">
+                            <b>
+                                <h5 class="card-title">
+                                    <%= list.title %>
+                                </h5>
+                            </b>
+                            <p class="card-text">
+                                <%=list.description%>
+                            </p>
+                            <p class="card-text">RS<%=list.price%> /night &nbsp; <i class="taxPrice">+18 GST</i></p>
+                            
+                        </div>
+                    </div>
+                    <% } %>
+        </div>
+        </a>
+        <% } %>
+
+        <!-- <% for(let list of allList) { %>
+    <ul>
+        <li><a href="/listings/<%= list._id %>"><b>Title</b>:<%= list.title %></li></a>
+    </ul>
+    <hr>
+    <% } %> -->
+    </body>
+
+    <script>
+        let taxSwitch = document.getElementById('flexSwitchCheckDefault')
+        let tax = document.getElementsByClassName('taxPrice')
+        taxSwitch.addEventListener('click',()=>{
+            console.log(tax);
+            
+            for (let info of tax) {
+                if(info.style.display !== 'inline'){
+                info.style.display = 'inline'
+              }
+              else{
+                info.style.display = 'none'
+              }
+            }
+             
+        })
+    </script>

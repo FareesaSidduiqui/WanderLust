@@ -1,0 +1,75 @@
+<% layout('/layouts/boilerplate') %>
+<body>
+    <br><br>
+    <div class="col-8 offset-2">
+
+    <!-- listing[] making all the field as object key and the response in form is the value -->
+    <form method="POST" action="/listings/<%= indiviual._id %>?_method=PUT" novalidate class="needs-validation" enctype="multipart/form-data">
+        <h1>Edit the List</h1>
+
+        <div class="mb-3">
+            <label for="title" class="form-label">Title</label>
+            <input type="text" name="listing[title]" value="<%= indiviual.title %>" class="form-control" required>
+            <div class="invalid-feedback">Edit the title</div>
+
+        </div>
+        <br><br>
+        <div class="mb-3">
+            <label for="description" class="form-label">Description</label>
+            <textarea rows="4" cols="50" name="listing[description]" textarea class="form-control" required><%= indiviual.description %></textarea>
+            <div class="invalid-feedback">Describe the place</div>
+        </div>
+        <br><br>
+        <div>
+            <img src="<%= indiviual.image.url %>" alt="" width="280" height="150">
+        </div>
+        <div class="mb-3">
+            <label for="image" class="form-label">Image</label>
+            <input type="file" name="listing[image]" class="form-control">
+        </div>
+        <br><br>
+        <div class="mb-3">
+            <label for="category" class="form-label">Category</label>
+            <select name="listing[category]" class="form-select" required>
+                <option value="">Select a Category</option>
+                <option value="room" <%= indiviual.category === "room" ? "selected" : "" %>>Room</option>
+                <option value="trending" <%= indiviual.category === "trending" ? "selected" : "" %>>Trending</option>
+                <option value="arctic" <%= indiviual.category === "arctic" ? "selected" : "" %>>Arctic</option>
+                <option value="pools" <%= indiviual.category === "pools" ? "selected" : "" %>>Pools</option>
+                <option value="mountains" <%= indiviual.category === "mountains" ? "selected" : "" %>>Mountains</option>
+                <option value="castle" <%= indiviual.category === "castle" ? "selected" : "" %>>Castle</option>
+                <option value="farm" <%= indiviual.category === "farm" ? "selected" : "" %>>Farm</option>
+                <option value="mountain city" <%= indiviual.category === "mountain city" ? "selected" : "" %>>Mountain City</option>
+                <option value="camping" <%= indiviual.category === "camping" ? "selected" : "" %>>Camping</option>
+            </select>
+            <div class="invalid-feedback">Category is required</div>
+        </div>        
+        <br><br>
+        <div class="row">
+            <div class="mb-3 col-md-4">
+                <label for="price" class="form-label">Price</label>
+                <input type="text" name="listing[price]" value="<%= indiviual.price %>" class="form-control" required>
+            <div class="invalid-feedback">Enter valid price</div>
+            </div>
+            <div class="mb-3 col-md-8">
+                <label for="country" class="form-label">Country</label>
+                <input type="text" name="listing[country]" value="<%= indiviual.country %>" class="form-control" required>
+            <div class="invalid-feedback">Enter country</div>
+
+            </div>
+
+        </div>
+       
+        <br><br>
+        <div class="mb-3">
+            <label for="location" class="form-label">Location</label>
+            <input type="text" name="listing[location]" value="<%= indiviual.location %>" class="form-control">
+            <div class="invalid-feedback">Enter the location</div>
+
+        </div>
+        <br><br>
+         <button class="btn btn-dark edit-btn">EDIT</button>
+         </div>
+    </form>
+    <br><br>
+</body>

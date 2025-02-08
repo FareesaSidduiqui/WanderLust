@@ -1,0 +1,109 @@
+<style>
+.navbar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: white;
+  border-bottom: 1px solid #ddd;
+}
+
+.nav-left,
+.nav-right {
+  flex: 1;
+}
+
+.nav-center {
+  flex: 2;
+  display: flex;
+  justify-content: center;
+}
+
+.search-form {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.search-box {
+  padding: 8px 12px;
+  border: none;
+  outline: none;
+  width: 250px;
+  
+}
+
+.search-btn {
+  padding: 8px 15px;
+  background-color: white;
+  border: 2px solid #fe424d;
+  color: #fe424d;
+  cursor: pointer;
+  transition: 0.3s;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+
+.search-btn:hover {
+  background-color: #fe424d;
+  color: white;
+}
+
+.nav-right {
+  flex: 1;
+  text-align: right;
+}
+
+.nav-right a {
+  margin-left: 15px;
+  text-decoration: none;
+  color: black;
+}
+</style>
+
+<nav class="navbar navbar-expand-md bg-body-light border-bottom sticky-top">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/listings"><i class="fa-solid fa-compass"></i></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link" href="/listings">Explore</a>
+              </li>
+        </ul>
+      </div>
+      <div class="nav-center">
+      <form class="search-form" action="/listings" method="GET">
+        <input class="search-box" type="search" name="country" placeholder="Search a destination" 
+        value="<%= typeof searchQuery !== 'undefined' ? searchQuery : '' %>" aria-label="Search">
+        <button class="search-btn" type="submit">Search</button>
+      </form>
+      </div>
+      <div class="ms-auto">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="/listings/new">Add New Listing</a>
+          </li>
+          <% if (!currentUser) { %>
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="/signup"><b>Sign Up</b></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/login"><b>Log In</b></a>
+            </li>
+          <% } %>
+          <% if (currentUser) { %>
+            <li class="nav-item">
+              <a class="nav-link" href="/logout"><b>Log Out</b></a>
+            </li>
+          <% } %>
+
+           
+        </ul>
+      </div>
+    </div>
+  </nav>
