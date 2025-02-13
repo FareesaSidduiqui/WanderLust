@@ -1,7 +1,7 @@
 <nav class="navbar bg-body-light border-bottom sticky-top">
-  <div class="container-fluid d-flex align-items-center">
+  <div class="container-fluid d-flex flex-nowrap align-items-center">
     <!-- Left Section (Logo + Explore) -->
-    <div class="d-flex align-items-center">
+    <div class="d-flex align-items-center flex-shrink-0">
       <a class="navbar-brand text-white" href="/listings"><i class="fa-solid fa-compass"></i></a>
       <ul class="navbar-nav d-none d-md-flex flex-row">
         <li class="nav-item px-2">
@@ -11,7 +11,7 @@
     </div>
 
     <!-- Center Section (Search Bar) -->
-    <div class="nav-center mx-auto">
+    <div class="nav-center flex-grow-1 mx-2">
       <form class="search-form" action="/listings" method="GET">
         <input class="search-box" type="search" name="country" placeholder="Search a destination"
           value="<%= typeof searchQuery !== 'undefined' ? searchQuery : '' %>" aria-label="Search">
@@ -42,7 +42,7 @@
     </div>
 
     <!-- Mobile Toggler -->
-    <button class="navbar-toggler d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarNav"
+    <button class="navbar-toggler d-md-none flex-shrink-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarNav"
       aria-controls="sidebarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -67,12 +67,15 @@
 
     <!-- Filters Dropdown -->
     <!-- Filters Dropdown Button -->
-    <button class="btn btn-outline-danger w-50 text-start d-flex justify-content-between align-items-center"
-      type="button" data-bs-toggle="collapse" data-bs-target="#filterDropdown" aria-expanded="false"
-      aria-controls="filterDropdown">
-      <span>Filters</span>
-      <i class="fa-solid fa-chevron-down"></i>
-    </button>
+    <div class="d-flex justify-content-center text-align">
+      <button class="btn btn-outline-danger w-50 text-start d-flex justify-content-between align-items-center"
+        type="button" data-bs-toggle="collapse" data-bs-target="#filterDropdown" aria-expanded="false"
+        aria-controls="filterDropdown">
+        <span>Filters</span>
+        <i class="fa-solid fa-chevron-down"></i>
+      </button>
+    </div>
+    
 
     <!-- Filters Section (Dropdown inside Sidebar) -->
     <div id="filterDropdown" class="collapse mt-2">
@@ -151,31 +154,52 @@
 
 
 <style>
+
+.nav-center {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center; /* Center align */
+  max-width: 500px; /* Adjust width */
+}
+
   /* Existing styles remain the same for filters and toggling */
   .search-form {
     display: flex;
-    align-items: center;
-    border: 1px solid #ccc;
-    border-radius: 20px;
-    overflow: hidden;
-  }
+  align-items: center;
+  max-width: 400px; /* Adjust the width as needed */
+  width: 100%;
+  border: 2px solid #fe424d;
+  border-radius: 20px;
+  overflow: hidden;  }
 
   .search-box {
-    padding: 8px 12px;
-    border: none;
-    outline: none;
-    width: 250px;
+    flex: 1;
+  min-width: 120px;
+  padding: 8px 12px;
+  border: none;
+  outline: none;
   }
+
+  .navbar-nav {
+  display: flex;
+   align-items: center;/* Ensures vertical centering */
+}
+
+.container-fluid {
+  display: flex;
+  align-items: center;
+}
 
   .search-btn {
     padding: 8px 15px;
-    background-color: white;
-    border: 2px solid #fe424d;
-    color: #fe424d;
-    cursor: pointer;
-    transition: 0.3s;
-    border-top-right-radius: 20px;
-    border-bottom-right-radius: 20px;
+  background-color: white;
+  border: none;
+  color: #fe424d;
+  cursor: pointer;
+  transition: 0.3s;
+  border-left: 2px solid #fe424d;
+  border-radius: 0 20px 20px 0;
+  white-space: nowrap;
   }
 
   .search-btn:hover {
@@ -238,12 +262,20 @@
   }
 
   .tax-toggle {
-    padding: 10px;
+    /* padding: 10px;
     border-top: 1px solid #ccc;
-    margin-top: 10px;
-    text-align: left; /* Ensures alignment */
+    margin-top: 10px; */
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    align-items: center;
+    position: relative;
+    left: 25px;
+    /* text-align: left; Ensures alignment */
 
   }
+
+  
 
 
   .user-options{
@@ -276,9 +308,25 @@
     }
   }
 
+   /* Adjust navbar elements spacing */
+   .navbar-brand {
+    margin-right: 0.5rem;
+  }
+
   @media (max-width: 767px) {
     .navbar-nav.d-flex {
       display: none !important;
+    }
+    .container-fluid {
+      gap: 0.5rem; /* Add spacing between elements */
+    }
+    
+    .search-box {
+      width: 100%; /* Full width available */
+    }
+    
+    .navbar-toggler {
+      padding: 0.25rem 0.5rem; /* Reduce button padding */
     }
   }
 </style>

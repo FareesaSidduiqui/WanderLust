@@ -103,7 +103,7 @@
   <% if (allList.length === 0) { %>
     <center><p id="noResult">No listings found<%= searchQuery ? ' for "' + searchQuery + '"' : '' %>.</p></center>
   <% } else { %>
-        <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1">
+        <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 mt-3">
             <% for(let list of allList) { %>
                 <a href="/listings/<%= list._id %>" class="fullCard">
                     <div class="card col listing-card">
