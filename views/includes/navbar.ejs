@@ -1,109 +1,284 @@
-<style>
-.navbar {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 10px 20px;
-  background-color: white;
-  border-bottom: 1px solid #ddd;
-}
+<nav class="navbar bg-body-light border-bottom sticky-top">
+  <div class="container-fluid d-flex align-items-center">
+    <!-- Left Section (Logo + Explore) -->
+    <div class="d-flex align-items-center">
+      <a class="navbar-brand text-white" href="/listings"><i class="fa-solid fa-compass"></i></a>
+      <ul class="navbar-nav d-none d-md-flex flex-row">
+        <li class="nav-item px-2">
+          <a class="nav-link text-black" href="/listings">Explore</a>
+        </li>
+      </ul>
+    </div>
 
-.nav-left,
-.nav-right {
-  flex: 1;
-}
-
-.nav-center {
-  flex: 2;
-  display: flex;
-  justify-content: center;
-}
-
-.search-form {
-  display: flex;
-  align-items: center;
-  border: 1px solid #ccc;
-  border-radius: 20px;
-  overflow: hidden;
-}
-
-.search-box {
-  padding: 8px 12px;
-  border: none;
-  outline: none;
-  width: 250px;
-  
-}
-
-.search-btn {
-  padding: 8px 15px;
-  background-color: white;
-  border: 2px solid #fe424d;
-  color: #fe424d;
-  cursor: pointer;
-  transition: 0.3s;
-  border-top-right-radius: 20px;
-  border-bottom-right-radius: 20px;
-}
-
-.search-btn:hover {
-  background-color: #fe424d;
-  color: white;
-}
-
-.nav-right {
-  flex: 1;
-  text-align: right;
-}
-
-.nav-right a {
-  margin-left: 15px;
-  text-decoration: none;
-  color: black;
-}
-</style>
-
-<nav class="navbar navbar-expand-md bg-body-light border-bottom sticky-top">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="/listings"><i class="fa-solid fa-compass"></i></a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
-              <li class="nav-item">
-                <a class="nav-link" href="/listings">Explore</a>
-              </li>
-        </ul>
-      </div>
-      <div class="nav-center">
+    <!-- Center Section (Search Bar) -->
+    <div class="nav-center mx-auto">
       <form class="search-form" action="/listings" method="GET">
-        <input class="search-box" type="search" name="country" placeholder="Search a destination" 
-        value="<%= typeof searchQuery !== 'undefined' ? searchQuery : '' %>" aria-label="Search">
+        <input class="search-box" type="search" name="country" placeholder="Search a destination"
+          value="<%= typeof searchQuery !== 'undefined' ? searchQuery : '' %>" aria-label="Search">
         <button class="search-btn" type="submit">Search</button>
       </form>
-      </div>
-      <div class="ms-auto">
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link" href="/listings/new">Add New Listing</a>
-          </li>
-          <% if (!currentUser) { %>
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="/signup"><b>Sign Up</b></a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/login"><b>Log In</b></a>
-            </li>
-          <% } %>
-          <% if (currentUser) { %>
-            <li class="nav-item">
-              <a class="nav-link" href="/logout"><b>Log Out</b></a>
-            </li>
-          <% } %>
+    </div>
 
-           
-        </ul>
+    <!-- Right Section (Desktop Navigation) -->
+    <div class="d-none d-md-block">
+      <ul class="navbar-nav d-flex flex-row">
+        <li class="nav-item px-2">
+          <a class="nav-link text-black" href="/listings/new">Add New Listing</a>
+        </li>
+        <% if (!currentUser) { %>
+          <li class="nav-item px-2">
+            <a class="nav-link text-black" href="/signup"><b>Sign Up</b></a>
+          </li>
+          <li class="nav-item px-2">
+            <a class="nav-link text-black" href="/login"><b>Log In</b></a>
+          </li>
+          <% } %>
+            <% if (currentUser) { %>
+              <li class="nav-item px-2">
+                <a class="nav-link text-black" href="/logout"><b>Log Out</b></a>
+              </li>
+              <% } %>
+      </ul>
+    </div>
+
+    <!-- Mobile Toggler -->
+    <button class="navbar-toggler d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarNav"
+      aria-controls="sidebarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile Menu (Offcanvas) -->
+<div class="offcanvas offcanvas-start bg-light text-black d-md-none" tabindex="-1" id="sidebarNav">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title">Menu</h5>
+    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link text-black" href="/listings">Explore</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-black" href="/listings/new">Add New Listing</a>
+      </li>
+    </ul>
+
+    <!-- Filters Dropdown -->
+    <!-- Filters Dropdown Button -->
+    <button class="btn btn-outline-danger w-50 text-start d-flex justify-content-between align-items-center"
+      type="button" data-bs-toggle="collapse" data-bs-target="#filterDropdown" aria-expanded="false"
+      aria-controls="filterDropdown">
+      <span>Filters</span>
+      <i class="fa-solid fa-chevron-down"></i>
+    </button>
+
+    <!-- Filters Section (Dropdown inside Sidebar) -->
+    <div id="filterDropdown" class="collapse mt-2">
+      <a href="/listings?category=room<%= typeof searchQuery !== 'undefined' && searchQuery ? '&country=' + encodeURIComponent(searchQuery) : '' %>" 
+        class="filter">
+        <div><i class="fa-solid fa-bed"></i></div>
+        <p>Room</p>
+      </a>
+      <a href="/listings?category=trending<%= typeof searchQuery !== 'undefined' && searchQuery ? '&country=' + encodeURIComponent(searchQuery) : '' %>"
+        class="filter">
+        <div><i class="fa-solid fa-fire"></i></div>
+        <p>Trending</p>
+      </a>
+      <a href="/listings?category=arctic<%= typeof searchQuery !== 'undefined' && searchQuery ? '&country=' + encodeURIComponent(searchQuery) : '' %>"
+        class="filter">
+        <div><i class="fa-solid fa-snowflake"></i></div>
+        <p>Arctic</p>
+      </a>
+      <a href="/listings?category=pools<%= typeof searchQuery !== 'undefined' && searchQuery ? '&country=' + encodeURIComponent(searchQuery) : '' %>"
+        class="filter">
+        <div><i class="fa-solid fa-person-swimming"></i></div>
+        <p>Pools</p>
+      </a>
+      <a href="/listings?category=mountains<%= typeof searchQuery !== 'undefined' && searchQuery ? '&country=' + encodeURIComponent(searchQuery) : '' %>"
+        class="filter">
+        <div><i class="fa-solid fa-mountain"></i></div>
+        <p>Mountains</p>
+      </a>
+      <a href="/listings?category=castle<%= typeof searchQuery !== 'undefined' && searchQuery ? '&country=' + encodeURIComponent(searchQuery) : '' %>"
+        class="filter">
+        <div><i class="fa-solid fa-chess-rook"></i></div>
+        <p>Castle</p>
+      </a>
+      <a href="/listings?category=farm<%= typeof searchQuery !== 'undefined' && searchQuery ? '&country=' + encodeURIComponent(searchQuery) : '' %>"
+        class="filter">
+        <div><i class="fa-solid fa-tractor"></i></div>
+        <p>Farm</p>
+      </a>
+      <a href="/listings?category=mountain city<%= typeof searchQuery !== 'undefined' && searchQuery ? '&country=' + encodeURIComponent(searchQuery) : '' %>"
+        class="filter">
+        <div><i class="fa-solid fa-mountain-city"></i></div>
+        <p>Mountain City</p>
+      </a>
+      <a href="/listings?category=camping<%= typeof searchQuery !== 'undefined' && searchQuery ? '&country=' + encodeURIComponent(searchQuery) : '' %>"
+        class="filter">
+        <div><i class="fa-solid fa-campground"></i></div>
+        <p>Camping</p>
+      </a>
+    </div>
+
+    <!-- Tax Toggle (Always Visible) -->
+    <div class="tax-toggle mt-3">
+      <div class="form-check-reverse form-switch">
+        <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+        <label class="form-check-label" for="flexSwitchCheckDefault">Display total after taxes</label>
       </div>
     </div>
-  </nav>
+
+    <ul class="navbar-nav user-options">
+      <% if (!currentUser) { %>
+        <li class="nav-item">
+          <a class="nav-link text-black" href="/signup"><b>Sign Up</b></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-black" href="/login"><b>Log In</b></a>
+        </li>
+        <% } %>
+          <% if (currentUser) { %>
+            <li class="nav-item">
+              <a class="nav-link text-black" href="/logout"><b>Log Out</b></a>
+            </li>
+            <% } %>
+    </ul>
+  </div>
+</div>
+
+
+<style>
+  /* Existing styles remain the same for filters and toggling */
+  .search-form {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    overflow: hidden;
+  }
+
+  .search-box {
+    padding: 8px 12px;
+    border: none;
+    outline: none;
+    width: 250px;
+  }
+
+  .search-btn {
+    padding: 8px 15px;
+    background-color: white;
+    border: 2px solid #fe424d;
+    color: #fe424d;
+    cursor: pointer;
+    transition: 0.3s;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+  }
+
+  .search-btn:hover {
+    background-color: #fe424d;
+    color: white;
+  }
+
+  .offcanvas {
+    width: 250px;
+  }
+
+  .nav-link {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 15px;
+  }
+
+  .nav-link:hover {
+    background-color: #fe424d;
+  }
+
+  .offcanvas-header .btn-close {
+    position: absolute;
+    right: 15px;
+    top: 20px;
+  }
+
+  .btn-outline-danger {
+    border: 2px solid #fe424d;
+    color: #fe424d;
+    font-weight: bold;
+    padding: 10px;
+    border-radius: 8px;
+  }
+
+  .btn-outline-danger:hover,
+  .btn-outline-danger:focus {
+    background-color: #fe424d;
+    color: white;
+  }
+
+  #filterDropdown .filter {
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    margin: 5px 0;
+    border-radius: 5px;
+    transition: 0.3s;
+  }
+
+  #filterDropdown .filter:hover {
+    background-color: #fe424d;
+    color: white;
+  }
+
+  .filter div {
+    margin-right: 10px;
+  }
+
+  .tax-toggle {
+    padding: 10px;
+    border-top: 1px solid #ccc;
+    margin-top: 10px;
+    text-align: left; /* Ensures alignment */
+
+  }
+
+
+  .user-options{
+    padding-top: 15px;
+  }
+
+  /* Add this to your existing styles */
+  @media (max-width: 767px) {
+
+    /* Hide main filters on mobile */
+    #filters:not(.offcanvas-body #filters) {
+      display: none !important;
+    }
+
+    /* Style adjustments for mobile filters */
+    .offcanvas-body #filters {
+      flex-direction: column;
+      padding: 15px;
+    }
+
+    .offcanvas-body .filter {
+      margin: 10px 0;
+      text-align: left;
+      display: flex;
+      align-items: center;
+    }
+
+    .offcanvas-body .filter div {
+      margin-right: 15px;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .navbar-nav.d-flex {
+      display: none !important;
+    }
+  }
+</style>

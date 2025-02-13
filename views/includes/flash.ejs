@@ -1,5 +1,5 @@
 <% if (success && success.length) { %>
-    <div class="alert alert-success alert-dismissible fade show col-6 offset-3" role="alert">
+    <div class="alert alert-success alert-dismissible fade show col-6 offset-3" id="flash-success" role="alert">
         <%= success %>
         <button type="button"
          class="btn-close"
@@ -11,7 +11,7 @@
 <% } %> 
 
 <% if (error && error.length) { %>
-    <div class="alert alert-danger alert-dismissible fade show col-6 offset-3" role="alert">
+    <div class="alert alert-danger alert-dismissible fade show col-6 offset-3" role="alert" id="flash-error">
         <%= error %>
         <button type="button"
          class="btn-close"
@@ -23,3 +23,25 @@
 <!-- success by default ek array hai toh empty alert show hoga
  toh hamein sath mein likhna hoga kai array ki length zero nae hai toh dikhao tb
  yeh work karaiga -->
+
+ <script>
+    // Auto-hide success message after 3 seconds
+    setTimeout(() => {
+        let successMessage = document.getElementById('flash-success');
+        if (successMessage) {
+            successMessage.style.transition = "opacity 0.5s ease-out";
+            successMessage.style.opacity = "0";
+            setTimeout(() => successMessage.remove(), 500); // Remove from DOM after fading out
+        }
+    }, 3000); // 3 seconds delay
+
+    // Auto-hide error message after 3 seconds
+    setTimeout(() => {
+        let errorMessage = document.getElementById('flash-error');
+        if (errorMessage) {
+            errorMessage.style.transition = "opacity 0.5s ease-out";
+            errorMessage.style.opacity = "0";
+            setTimeout(() => errorMessage.remove(), 500); // Remove from DOM after fading out
+        }
+    }, 3000); // 3 seconds delay
+</script>

@@ -1,3 +1,44 @@
+<style>
+ footer {
+  padding: 1px;
+}
+
+.f-info {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 100%;
+  margin: 0 auto;
+  gap: 15px;
+}
+
+.f-info-socials {
+  display: flex;
+  gap: 15px;
+  padding-top: 10px;
+
+}
+
+.f-info-links {
+  display: flex;
+  gap: 15px;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .f-info {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .f-info-socials,
+  .f-info-links {
+    justify-content: center;
+  }
+}
+</style>
+
 <footer>
     <div class="f-info">
       <div class="f-info-socials">
