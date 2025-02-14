@@ -91,7 +91,7 @@
             <h5 class="text-center text-md-start"><b>All Reviews</b></p>
             <div class="row justify-content-center">
                 <% for (review of indiviualList.reviews) { %>
-                    <div class="card col-md-5 col-sm-12 mb-3">
+                    <div class="card col-md-3 col-sm-12 mb-3 ps-3 ms-3 pb-4">
                         <div class="card-body">
                             <h5 class="card-title"><%= review.author.username %></h5>
                             <p class="starability-result card-text" data-rating="<%= review.rating %>"></p>
@@ -99,7 +99,7 @@
                         </div>
                         <% if (currentUser && currentUser.username === review.author.username) { %> 
                             <form method="POST" action="/listings/<%= indiviualList._id %>/reviews/<%= review._id %>?_method=DELETE" class="text-center mb-3">
-                                <button class="btn btn-sm btn-dark">Delete</button>
+                                <button class="btn btn-sm btn-dark mt-2 dlt-btn">Delete</button>
                             </form>                             
                         <% } %>
                     </div>
@@ -119,6 +119,12 @@
         margin-left: 100px; /* Add some margin to the left to move it to the right */
     }
 
+    .dlt-btn{
+        position: relative;
+        top: 30px;
+        margin-top: 12px;
+    }
+
     .listing-image {
         flex: 1;
         max-width: 45%; /* Adjust the image size */
@@ -127,7 +133,8 @@
     .listing-image img {
         width: 100%;
         max-width: 100%;
-        height: auto;
+        height: 300px;
+        object-fit: cover;
     }
 
     .listing-details {
@@ -163,4 +170,8 @@
             max-width: 100%;
         }
     }
+
+    
+
+
 </style>
