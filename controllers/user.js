@@ -14,7 +14,6 @@ module.exports.userSignup = async (req, res) => {
         let newUser = await User({ username, email })
         const regUser = await User.register(newUser, password) //this reg async func thats why await
         console.log(regUser);
-        // to make the signup and immediate login not separelty login needed with this
         req.login(regUser,(err)=>{
             if(err){
                 next(err)
@@ -37,9 +36,6 @@ module.exports.renderLoginForm =  (req, res) => {
 module.exports.userLoggedIn = async(req, res) => {
     req.flash('success','Welcome back to Wanderlust! You are logged in')
 
-    // if hum koi cheez mein edit ya add nae bss sirf platform pr direct login horahai hain
-    // toh locals mein koi path hi nae hoga redirect honai kai liya 
-    // direct login horahai toh iskai liya yeh condition lagaye
     let url = res.locals.redirectUrl || '/listings'
     res.redirect(url)
 }
